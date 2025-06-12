@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="image-bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7928CA" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#FF0080" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="image-icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7928CA" />
+      <stop offset="100%" stop-color="#FF0080" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Фон -->
+  <rect x="0" y="0" width="400" height="300" fill="url(#image-bg-gradient)" />
+  
+  <!-- Узор -->
+  <path d="M0 0 L400 300" stroke="#FFFFFF" stroke-width="0.5" stroke-opacity="0.1" />
+  <path d="M0 300 L400 0" stroke="#FFFFFF" stroke-width="0.5" stroke-opacity="0.1" />
+  
+  <!-- Центральная иконка -->
+  <g transform="translate(150, 100)">
+    <rect x="0" y="0" width="100" height="100" rx="10" stroke="url(#image-icon-gradient)" stroke-width="3" fill="none" />
+    <circle cx="25" cy="25" r="10" fill="url(#image-icon-gradient)" />
+    <path d="M100 70 L70 40 L40 70 L10 40 L0 50" stroke="url(#image-icon-gradient)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M30 90 L100 90" stroke="url(#image-icon-gradient)" stroke-width="3" fill="none" stroke-linecap="round" />
+  </g>
+  
+  <!-- Текст -->
+  <text x="200" y="230" font-family="Arial, sans-serif" font-size="18" fill="#FFFFFF" text-anchor="middle">AI-Generated Imagery</text>
+</svg>

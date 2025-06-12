@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="web-bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7928CA" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#FF0080" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="web-icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7928CA" />
+      <stop offset="100%" stop-color="#FF0080" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Фон -->
+  <rect x="0" y="0" width="400" height="300" fill="url(#web-bg-gradient)" />
+  
+  <!-- Узор -->
+  <pattern id="dot-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
+    <circle cx="10" cy="10" r="1" fill="#FFFFFF" fill-opacity="0.1" />
+  </pattern>
+  <rect x="0" y="0" width="400" height="300" fill="url(#dot-pattern)" />
+  
+  <!-- Центральная иконка - Браузер -->
+  <g transform="translate(100, 60)">
+    <rect x="0" y="0" width="200" height="140" rx="8" stroke="url(#web-icon-gradient)" stroke-width="3" fill="none" />
+    <line x1="0" y1="30" x2="200" y2="30" stroke="url(#web-icon-gradient)" stroke-width="3" />
+    
+    <!-- Кнопки навигации -->
+    <circle cx="15" cy="15" r="5" fill="url(#web-icon-gradient)" />
+    <circle cx="35" cy="15" r="5" fill="url(#web-icon-gradient)" />
+    <circle cx="55" cy="15" r="5" fill="url(#web-icon-gradient)" />
+    
+    <!-- Адресная строка -->
+    <rect x="75" y="10" width="115" height="10" rx="5" stroke="url(#web-icon-gradient)" stroke-width="1.5" fill="none" />
+    
+    <!-- Контент -->
+    <rect x="20" y="45" width="160" height="10" rx="2" stroke="url(#web-icon-gradient)" stroke-width="1.5" fill="none" />
+    <rect x="20" y="65" width="120" height="10" rx="2" stroke="url(#web-icon-gradient)" stroke-width="1.5" fill="none" />
+    <rect x="20" y="85" width="140" height="10" rx="2" stroke="url(#web-icon-gradient)" stroke-width="1.5" fill="none" />
+    
+    <!-- Кнопка -->
+    <rect x="20" y="110" width="70" height="15" rx="7.5" stroke="url(#web-icon-gradient)" stroke-width="2" fill="url(#web-icon-gradient)" fill-opacity="0.3" />
+    <text x="55" y="121" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle">BUTTON</text>
+  </g>
+  
+  <!-- Текст -->
+  <text x="200" y="230" font-family="Arial, sans-serif" font-size="18" fill="#FFFFFF" text-anchor="middle">Web Development</text>
+</svg>

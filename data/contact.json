@@ -1,0 +1,11 @@
+{
+  "email": "hello@example.com",
+  "phone": "+7 (999) 123-45-67",
+  "address": "Москва, Россия",
+  "social": {
+    "linkedin": "#",
+    "twitter": "#",
+    "instagram": "#",
+    "facebook": "#"
+  }
+}

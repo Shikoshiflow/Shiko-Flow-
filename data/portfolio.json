@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "title": "AI-генерация изображений",
+      "category": "image",
+      "description": "Серия уникальных изображений, созданных с помощью нейросетей",
+      "longDescription": "Проект по созданию уникального визуального контента с помощью нейросетей.",
+      "image": "assets/img/icons/placeholder-image.svg",
+      "link": "#",
+      "tags": [
+        "AI",
+        "Искусство",
+        "Дизайн"
+      ]
+    },
+    {
+      "title": "AI-генерация видео",
+      "category": "video",
+      "description": "Коллекция видеороликов, созданных с помощью AI-технологий",
+      "longDescription": "Проект по созданию динамического контента с использованием современных технологий.",
+      "image": "assets/img/icons/placeholder-video.svg",
+      "link": "#",
+      "tags": [
+        "Video",
+        "Motion",
+        "AI"
+      ]
+    },
+    {
+      "title": "Современный веб-сайт",
+      "category": "web",
+      "description": "Разработка креативного веб-сайта с уникальным дизайном",
+      "longDescription": "Проект по созданию уникального веб-сайта с использованием современных технологий.",
+      "image": "assets/img/icons/placeholder-web.svg",
+      "link": "#",
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "title": "Мобильное приложение",
+      "category": "app",
+      "description": "Разработка функционального приложения для iOS и Android",
+      "longDescription": "Проект по созданию кроссплатформенного мобильного приложения.",
+      "image": "assets/img/icons/placeholder-app.svg",
+      "link": "#",
+      "tags": [
+        "React Native",
+        "UI/UX",
+        "Mobile"
+      ]
+    },
+    {
+      "title": "Веб-приложение",
+      "category": "web",
+      "description": "Интерактивное веб-приложение с богатым функционалом",
+      "longDescription": "Проект по созданию полнофункционального веб-приложения на современном стеке технологий.",
+      "image": "assets/img/icons/placeholder-web.svg",
+      "link": "#",
+      "tags": [
+        "React",
+        "Node.js",
+        "MongoDB"
+      ]
+    },
+    {
+      "title": "3D визуализация",
+      "category": "image",
+      "description": "Создание трёхмерных моделей и визуализаций",
+      "longDescription": "Проект по созданию фотореалистичных 3D визуализаций и моделей.",
+      "image": "assets/img/icons/placeholder-image.svg",
+      "link": "#",
+      "tags": [
+        "3D",
+        "Blender",
+        "Рендеринг"
+      ]
+    }
+  ]
+}

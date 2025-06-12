@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления портфолио</title>
+    <!-- Используем те же шрифты, что и на основном сайте -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-dark: #0A0A0A;
+            --color-darker: #050505;
+            --color-dark-light: #121212;
+            --color-gray: #222222;
+            --color-gray-light: #333333;
+            --color-primary: #7928CA;
+            --color-primary-light: #9553E0;
+            --color-secondary: #FF0080;
+            --color-secondary-light: #FF3E9D;
+            --color-text: #FFFFFF;
+            --color-text-muted: #AAAAAA;
+            --color-border: rgba(255, 255, 255, 0.1);
+            --color-success: #4CAF50;
+            --color-warning: #FFC107;
+            --color-danger: #F44336;
+            
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+            
+            --border-radius: 12px;
+            --transition-speed: 0.3s;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-dark);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .admin-title {
+            font-family: var(--font-secondary);
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .admin-nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .admin-nav-item {
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            background-color: var(--color-dark-light);
+            transition: background-color var(--transition-speed) ease;
+        }
+        
+        .admin-nav-item:hover {
+            background-color: var(--color-gray);
+        }
+        
+        .admin-nav-item.active {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+        }
+        
+        .admin-content {
+            margin-top: 20px;
+        }
+        
+        .admin-section {
+            display: none;
+        }
+        
+        .admin-section.active {
+            display: block;
+        }
+        
+        .admin-card {
+            background-color: var(--color-dark-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-card-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        /* Стили для форм */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--color-gray);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: border-color var(--transition-speed) ease;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            border-color: var(--color-primary);
+            outline: none;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border: none;
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-secondary {
+            background-color: var(--color-gray);
+            color: var(--color-text);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+        
+        .btn-danger {
+            background-color: var(--color-danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-success {
+            background-color: var(--color-success);
+            color: white;
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        /* Список элементов */
+        .item-list {
+            margin-bottom: 30px;
+        }
+        
+        .item-card {
+            background-color: var(--color-gray);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .item-info {
+            flex-grow: 1;
+        }
+        
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Оповещения */
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid var(--color-success);
+            color: var(--color-success);
+        }
+        
+        .alert-danger {
+            background-color: rgba(244, 67, 54, 0.2);
+            border: 1px solid var(--color-danger);
+            color: var(--color-danger);
+        }
+        
+        /* Форма портфолио */
+        .portfolio-form-container {
+            display: none;
+        }
+        
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .tag {
+            background-color: var(--color-gray-light);
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .tag-input-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1 class="admin-title">Панель управления портфолио</h1>
+            <a href="/" class="btn btn-secondary">На сайт</a>
+        </header>
+        
+        <div class="alert alert-success" id="successAlert">Изменения сохранены успешно!</div>
+        <div class="alert alert-danger" id="errorAlert">Произошла ошибка при сохранении.</div>
+        
+        <nav class="admin-nav">
+            <div class="admin-nav-item active" data-target="portfolio">Портфолио</div>
+            <div class="admin-nav-item" data-target="about">О себе</div>
+            <div class="admin-nav-item" data-target="future">Будущие проекты</div>
+            <div class="admin-nav-item" data-target="contact">Контакты</div>
+        </nav>
+        
+        <div class="admin-content">
+            <!-- Раздел Портфолио -->
+            <div class="admin-section active" id="portfolio-section">
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Управление проектами портфолио</h2>
+                    <button class="btn btn-primary" id="addPortfolioBtn">Добавить новый проект</button>
+                    
+                    <div class="item-list" id="portfolioList">
+                        <!-- Список проектов будет загружен через JavaScript -->
+                    </div>
+                    
+                    <div class="portfolio-form-container" id="portfolioForm">
+                        <h3 style="margin-bottom: 20px;">Редактирование проекта</h3>
+                        <form id="portfolioItemForm">
+                            <input type="hidden" id="portfolioItemId">
+                            <div class="form-group">
+                                <label class="form-label" for="projectTitle">Название проекта</label>
+                                <input class="form-input" type="text" id="projectTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="projectCategory">Категория</label>
+                                <select class="form-select" id="projectCategory" required>
+                                    <option value="image">Изображения</option>
+                                    <option value="video">Видео</option>
+                                    <option value="web">Сайты</option>
+                                    <option value="app">Программы</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="projectDescription">Краткое описание</label>
+                                <textarea class="form-textarea" id="projectDescription" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="projectLongDescription">Полное описание</label>
+                                <textarea class="form-textarea" id="projectLongDescription"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="projectImage">Изображение (путь)</label>
+                                <input class="form-input" type="text" id="projectImage" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="projectLink">Ссылка на проект</label>
+                                <input class="form-input" type="text" id="projectLink">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Теги</label>
+                                <div class="tags-container" id="tagsContainer">
+                                    <!-- Теги будут добавляться здесь -->
+                                </div>
+                                <div class="tag-input-container">
+                                    <input class="form-input" type="text" id="tagInput" placeholder="Добавить тег">
+                                    <button type="button" class="btn btn-secondary btn-small" id="addTagBtn">Добавить</button>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                                <button type="button" class="btn btn-secondary" id="cancelPortfolioBtn">Отмена</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Раздел О себе -->
+            <div class="admin-section" id="about-section">
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Редактирование информации о себе</h2>
+                    <form id="aboutForm">
+                        <div class="form-group">
+                            <label class="form-label" for="aboutText1">Текст первого абзаца</label>
+                            <textarea class="form-textarea" id="aboutText1" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="aboutText2">Текст второго абзаца</label>
+                            <textarea class="form-textarea" id="aboutText2" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Раздел Будущие проекты -->
+            <div class="admin-section" id="future-section">
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Будущие проекты</h2>
+                    <button class="btn btn-primary" id="addFutureBtn">Добавить проект</button>
+                    
+                    <div class="item-list" id="futureList">
+                        <!-- Список будущих проектов будет загружен через JavaScript -->
+                    </div>
+                    
+                    <div class="portfolio-form-container" id="futureForm">
+                        <h3 style="margin-bottom: 20px;">Редактирование будущего проекта</h3>
+                        <form id="futureItemForm">
+                            <input type="hidden" id="futureItemId">
+                            <div class="form-group">
+                                <label class="form-label" for="futureTitle">Название проекта</label>
+                                <input class="form-input" type="text" id="futureTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="futureDate">Дата (например, Q2 2025)</label>
+                                <input class="form-input" type="text" id="futureDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="futureDescription">Описание</label>
+                                <textarea class="form-textarea" id="futureDescription" required></textarea>
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                                <button type="button" class="btn btn-secondary" id="cancelFutureBtn">Отмена</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Раздел Контакты -->
+            <div class="admin-section" id="contact-section">
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Редактирование контактной информации</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label class="form-label" for="contactEmail">Email</label>
+                            <input class="form-input" type="email" id="contactEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="contactPhone">Телефон</label>
+                            <input class="form-input" type="text" id="contactPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="contactAddress">Адрес</label>
+                            <input class="form-input" type="text" id="contactAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Социальные сети</label>
+                            <div class="form-group">
+                                <label class="form-label" for="contactLinkedin">LinkedIn URL</label>
+                                <input class="form-input" type="text" id="contactLinkedin">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contactTwitter">Twitter URL</label>
+                                <input class="form-input" type="text" id="contactTwitter">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contactInstagram">Instagram URL</label>
+                                <input class="form-input" type="text" id="contactInstagram">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contactFacebook">Facebook URL</label>
+                                <input class="form-input" type="text" id="contactFacebook">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Навигация по вкладкам
+            const navItems = document.querySelectorAll('.admin-nav-item');
+            const sections = document.querySelectorAll('.admin-section');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    
+                    // Активируем пункт меню
+                    navItems.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Показываем нужный раздел
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(`${target}-section`).classList.add('active');
+                });
+            });
+            
+            // Показать/скрыть уведомления
+            function showAlert(type, message, duration = 3000) {
+                const alert = document.getElementById(`${type}Alert`);
+                alert.textContent = message;
+                alert.style.display = 'block';
+                
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, duration);
+            }
+            
+            // ============= ПОРТФОЛИО =============
+            let portfolioItems = [];
+            const portfolioList = document.getElementById('portfolioList');
+            const portfolioForm = document.getElementById('portfolioForm');
+            const portfolioItemForm = document.getElementById('portfolioItemForm');
+            const addPortfolioBtn = document.getElementById('addPortfolioBtn');
+            const cancelPortfolioBtn = document.getElementById('cancelPortfolioBtn');
+            const tagsContainer = document.getElementById('tagsContainer');
+            const tagInput = document.getElementById('tagInput');
+            const addTagBtn = document.getElementById('addTagBtn');
+            
+            // Загрузка данных портфолио
+            async function loadPortfolioData() {
+                try {
+                    const response = await fetch('/api/portfolio');
+                    const data = await response.json();
+                    
+                    portfolioItems = data.items || [];
+                    renderPortfolioItems();
+                } catch (error) {
+                    showAlert('error', 'Ошибка при загрузке данных портфолио');
+                    console.error(error);
+                }
+            }
+            
+            // Отображение списка проектов
+            function renderPortfolioItems() {
+                portfolioList.innerHTML = '';
+                
+                if (portfolioItems.length === 0) {
+                    portfolioList.innerHTML = '<p style="margin-top: 20px;">Пока нет проектов в портфолио.</p>';
+                    return;
+                }
+                
+                portfolioItems.forEach((item, index) => {
+                    const itemCard = document.createElement('div');
+                    itemCard.className = 'item-card';
+                    
+                    itemCard.innerHTML = `
+                        <div class="item-info">
+                            <h3 class="item-title">${item.title}</h3>
+                            <p class="item-description">Категория: ${getCategoryName(item.category)}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary btn-small edit-portfolio" data-index="${index}">Редактировать</button>
+                            <button class="btn btn-danger btn-small delete-portfolio" data-index="${index}">Удалить</button>
+                        </div>
+                    `;
+                    
+                    portfolioList.appendChild(itemCard);
+                });
+                
+                // Добавляем обработчики событий для кнопок
+                document.querySelectorAll('.edit-portfolio').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        editPortfolioItem(index);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-portfolio').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        deletePortfolioItem(index);
+                    });
+                });
+            }
+            
+            // Получение читаемого названия категории
+            function getCategoryName(category) {
+                const categories = {
+                    'image': 'Изображения',
+                    'video': 'Видео',
+                    'web': 'Сайты',
+                    'app': 'Программы'
+                };
+                
+                return categories[category] || category;
+            }
+            
+            // Редактирование проекта
+            function editPortfolioItem(index) {
+                const item = portfolioItems[index];
+                
+                document.getElementById('portfolioItemId').value = index;
+                document.getElementById('projectTitle').value = item.title || '';
+                document.getElementById('projectCategory').value = item.category || 'image';
+                document.getElementById('projectDescription').value = item.description || '';
+                document.getElementById('projectLongDescription').value = item.longDescription || '';
+                document.getElementById('projectImage').value = item.image || '';
+                document.getElementById('projectLink').value = item.link || '';
+                
+                // Отображение тегов
+                renderTags(item.tags || []);
+                
+                portfolioForm.style.display = 'block';
+                portfolioList.style.display = 'none';
+                addPortfolioBtn.style.display = 'none';
+            }
+            
+            // Добавление нового проекта
+            addPortfolioBtn.addEventListener('click', function() {
+                document.getElementById('portfolioItemId').value = -1;
+                document.getElementById('projectTitle').value = '';
+                document.getElementById('projectCategory').value = 'image';
+                document.getElementById('projectDescription').value = '';
+                document.getElementById('projectLongDescription').value = '';
+                document.getElementById('projectImage').value = '';
+                document.getElementById('projectLink').value = '';
+                
+                // Очистка тегов
+                renderTags([]);
+                
+                portfolioForm.style.display = 'block';
+                portfolioList.style.display = 'none';
+                addPortfolioBtn.style.display = 'none';
+            });
+            
+            // Отмена редактирования
+            cancelPortfolioBtn.addEventListener('click', function() {
+                portfolioForm.style.display = 'none';
+                portfolioList.style.display = 'block';
+                addPortfolioBtn.style.display = 'block';
+            });
+            
+            // Удаление проекта
+            function deletePortfolioItem(index) {
+                if (confirm('Вы уверены, что хотите удалить этот проект?')) {
+                    portfolioItems.splice(index, 1);
+                    savePortfolioData();
+                }
+            }
+            
+            // Сохранение данных портфолио
+            async function savePortfolioData() {
+                try {
+                    const response = await fetch('/api/portfolio', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ items: portfolioItems })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert('success', 'Данные портфолио сохранены успешно');
+                        renderPortfolioItems();
+                    } else {
+                        showAlert('error', 'Ошибка при сохранении данных портфолио');
+                    }
+                } catch (error) {
+                    showAlert('error', 'Ошибка при сохранении данных портфолио');
+                    console.error(error);
+                }
+            }
+            
+            // Обработка отправки формы портфолио
+            portfolioItemForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const index = parseInt(document.getElementById('portfolioItemId').value);
+                const title = document.getElementById('projectTitle').value;
+                const category = document.getElementById('projectCategory').value;
+                const description = document.getElementById('projectDescription').value;
+                const longDescription = document.getElementById('projectLongDescription').value;
+                const image = document.getElementById('projectImage').value;
+                const link = document.getElementById('projectLink').value;
+                
+                // Получаем теги из контейнера
+                const tags = Array.from(tagsContainer.querySelectorAll('.tag')).map(tag => {
+                    return tag.textContent.replace('✕', '').trim();
+                });
+                
+                const newItem = {
+                    title,
+                    category,
+                    description,
+                    longDescription,
+                    image,
+                    link,
+                    tags
+                };
+                
+                if (index === -1) {
+                    // Добавление нового элемента
+                    portfolioItems.push(newItem);
+                } else {
+                    // Обновление существующего
+                    portfolioItems[index] = newItem;
+                }
+                
+                savePortfolioData();
+                
+                // Скрываем форму
+                portfolioForm.style.display = 'none';
+                portfolioList.style.display = 'block';
+                addPortfolioBtn.style.display = 'block';
+            });
+            
+            // Управление тегами
+            function renderTags(tags) {
+                tagsContainer.innerHTML = '';
+                
+                tags.forEach(tag => {
+                    addTagToContainer(tag);
+                });
+            }
+            
+            function addTagToContainer(tagText) {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.innerHTML = `${tagText} <span class="tag-remove">✕</span>`;
+                
+                tag.querySelector('.tag-remove').addEventListener('click', function() {
+                    tag.remove();
+                });
+                
+                tagsContainer.appendChild(tag);
+            }
+            
+            addTagBtn.addEventListener('click', function() {
+                const value = tagInput.value.trim();
+                
+                if (value) {
+                    addTagToContainer(value);
+                    tagInput.value = '';
+                }
+            });
+            
+            tagInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addTagBtn.click();
+                }
+            });
+            
+            // ============= О СЕБЕ =============
+            const aboutForm = document.getElementById('aboutForm');
+            
+            // Загрузка данных о себе
+            async function loadAboutData() {
+                try {
+                    const response = await fetch('/api/about');
+                    const data = await response.json();
+                    
+                    document.getElementById('aboutText1').value = data.text1 || '';
+                    document.getElementById('aboutText2').value = data.text2 || '';
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            
+            // Сохранение данных о себе
+            aboutForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const text1 = document.getElementById('aboutText1').value;
+                const text2 = document.getElementById('aboutText2').value;
+                
+                try {
+                    const response = await fetch('/api/about', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ text1, text2 })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert('success', 'Данные о себе сохранены успешно');
+                    } else {
+                        showAlert('error', 'Ошибка при сохранении данных');
+                    }
+                } catch (error) {
+                    showAlert('error', 'Ошибка при сохранении данных');
+                    console.error(error);
+                }
+            });
+            
+            // ============= БУДУЩИЕ ПРОЕКТЫ =============
+            let futureItems = [];
+            const futureList = document.getElementById('futureList');
+            const futureForm = document.getElementById('futureForm');
+            const futureItemForm = document.getElementById('futureItemForm');
+            const addFutureBtn = document.getElementById('addFutureBtn');
+            const cancelFutureBtn = document.getElementById('cancelFutureBtn');
+            
+            // Загрузка данных будущих проектов
+            async function loadFutureData() {
+                try {
+                    const response = await fetch('/api/future');
+                    const data = await response.json();
+                    
+                    futureItems = data.items || [];
+                    renderFutureItems();
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            
+            // Отображение списка будущих проектов
+            function renderFutureItems() {
+                futureList.innerHTML = '';
+                
+                if (futureItems.length === 0) {
+                    futureList.innerHTML = '<p style="margin-top: 20px;">Пока нет будущих проектов.</p>';
+                    return;
+                }
+                
+                futureItems.forEach((item, index) => {
+                    const itemCard = document.createElement('div');
+                    itemCard.className = 'item-card';
+                    
+                    itemCard.innerHTML = `
+                        <div class="item-info">
+                            <h3 class="item-title">${item.title}</h3>
+                            <p class="item-description">Дата: ${item.date}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary btn-small edit-future" data-index="${index}">Редактировать</button>
+                            <button class="btn btn-danger btn-small delete-future" data-index="${index}">Удалить</button>
+                        </div>
+                    `;
+                    
+                    futureList.appendChild(itemCard);
+                });
+                
+                // Добавляем обработчики событий для кнопок
+                document.querySelectorAll('.edit-future').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        editFutureItem(index);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-future').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        deleteFutureItem(index);
+                    });
+                });
+            }
+            
+            // Редактирование будущего проекта
+            function editFutureItem(index) {
+                const item = futureItems[index];
+                
+                document.getElementById('futureItemId').value = index;
+                document.getElementById('futureTitle').value = item.title || '';
+                document.getElementById('futureDate').value = item.date || '';
+                document.getElementById('futureDescription').value = item.description || '';
+                
+                futureForm.style.display = 'block';
+                futureList.style.display = 'none';
+                addFutureBtn.style.display = 'none';
+            }
+            
+            // Добавление нового будущего проекта
+            addFutureBtn.addEventListener('click', function() {
+                document.getElementById('futureItemId').value = -1;
+                document.getElementById('futureTitle').value = '';
+                document.getElementById('futureDate').value = '';
+                document.getElementById('futureDescription').value = '';
+                
+                futureForm.style.display = 'block';
+                futureList.style.display = 'none';
+                addFutureBtn.style.display = 'none';
+            });
+            
+            // Отмена редактирования будущего проекта
+            cancelFutureBtn.addEventListener('click', function() {
+                futureForm.style.display = 'none';
+                futureList.style.display = 'block';
+                addFutureBtn.style.display = 'block';
+            });
+            
+            // Удаление будущего проекта
+            function deleteFutureItem(index) {
+                if (confirm('Вы уверены, что хотите удалить этот будущий проект?')) {
+                    futureItems.splice(index, 1);
+                    saveFutureData();
+                }
+            }
+            
+            // Сохранение данных будущих проектов
+            async function saveFutureData() {
+                try {
+                    const response = await fetch('/api/future', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ items: futureItems })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert('success', 'Данные будущих проектов сохранены успешно');
+                        renderFutureItems();
+                    } else {
+                        showAlert('error', 'Ошибка при сохранении данных будущих проектов');
+                    }
+                } catch (error) {
+                    showAlert('error', 'Ошибка при сохранении данных будущих проектов');
+                    console.error(error);
+                }
+            }
+            
+            // Обработка отправки формы будущего проекта
+            futureItemForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const index = parseInt(document.getElementById('futureItemId').value);
+                const title = document.getElementById('futureTitle').value;
+                const date = document.getElementById('futureDate').value;
+                const description = document.getElementById('futureDescription').value;
+                
+                const newItem = {
+                    title,
+                    date,
+                    description
+                };
+                
+                if (index === -1) {
+                    // Добавление нового элемента
+                    futureItems.push(newItem);
+                } else {
+                    // Обновление существующего
+                    futureItems[index] = newItem;
+                }
+                
+                saveFutureData();
+                
+                // Скрываем форму
+                futureForm.style.display = 'none';
+                futureList.style.display = 'block';
+                addFutureBtn.style.display = 'block';
+            });
+            
+            // ============= КОНТАКТЫ =============
+            const contactForm = document.getElementById('contactForm');
+            
+            // Загрузка контактных данных
+            async function loadContactData() {
+                try {
+                    const response = await fetch('/api/contact');
+                    const data = await response.json();
+                    
+                    document.getElementById('contactEmail').value = data.email || '';
+                    document.getElementById('contactPhone').value = data.phone || '';
+                    document.getElementById('contactAddress').value = data.address || '';
+                    document.getElementById('contactLinkedin').value = data.social?.linkedin || '';
+                    document.getElementById('contactTwitter').value = data.social?.twitter || '';
+                    document.getElementById('contactInstagram').value = data.social?.instagram || '';
+                    document.getElementById('contactFacebook').value = data.social?.facebook || '';
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            
+            // Сохранение контактных данных
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('contactEmail').value;
+                const phone = document.getElementById('contactPhone').value;
+                const address = document.getElementById('contactAddress').value;
+                const linkedin = document.getElementById('contactLinkedin').value;
+                const twitter = document.getElementById('contactTwitter').value;
+                const instagram = document.getElementById('contactInstagram').value;
+                const facebook = document.getElementById('contactFacebook').value;
+                
+                const contactData = {
+                    email,
+                    phone,
+                    address,
+                    social: {
+                        linkedin,
+                        twitter,
+                        instagram,
+                        facebook
+                    }
+                };
+                
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(contactData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert('success', 'Контактные данные сохранены успешно');
+                    } else {
+                        showAlert('error', 'Ошибка при сохранении контактных данных');
+                    }
+                } catch (error) {
+                    showAlert('error', 'Ошибка при сохранении контактных данных');
+                    console.error(error);
+                }
+            });
+            
+            // Инициализация
+            loadPortfolioData();
+            loadAboutData();
+            loadFutureData();
+            loadContactData();
+        });
+    </script>
+</body>
+</html>

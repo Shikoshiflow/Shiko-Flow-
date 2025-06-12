@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <defs>
+    <linearGradient id="ai-video-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7928CA" />
+      <stop offset="100%" stop-color="#FF0080" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="4" width="15" height="15" rx="2" stroke="url(#ai-video-gradient)" stroke-width="1.5" fill="none" />
+  <path d="M22 7L17 10V13L22 16V7Z" stroke="url(#ai-video-gradient)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="7" cy="9" r="1" fill="url(#ai-video-gradient)" />
+  <circle cx="12" cy="9" r="1" fill="url(#ai-video-gradient)" />
+  <path d="M6 14H13" stroke="url(#ai-video-gradient)" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <path d="M5 19L7 21" stroke="url(#ai-video-gradient)" stroke-width="1" fill="none" stroke-linecap="round" />
+  <path d="M14 19L12 21" stroke="url(#ai-video-gradient)" stroke-width="1" fill="none" stroke-linecap="round" />
+  <path d="M19 3L17 5" stroke="url(#ai-video-gradient)" stroke-width="1" fill="none" stroke-linecap="round" />
+</svg>
